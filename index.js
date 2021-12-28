@@ -1,6 +1,9 @@
 const { ApolloServer, gql } = require('apollo-server');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
+
+const PORT = process.env.PORT || 4000;
+
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
 // your data.
@@ -48,7 +51,9 @@ const resolvers = {
 // definition and your set of resolvers.
 const server = new ApolloServer({ 
     typeDefs, 
-    resolvers
+    resolvers,
+    introspection: true,
+    playground: true
 });
 
 // The `listen` method launches a web server.
