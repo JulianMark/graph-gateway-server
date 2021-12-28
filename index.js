@@ -1,5 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const { ApolloServerPluginLandingPageGraphQLPlayground } = require ('apollo-server-core')
 
 
 const PORT = process.env.PORT || 4000;
@@ -52,8 +53,9 @@ const resolvers = {
 const server = new ApolloServer({ 
     typeDefs, 
     resolvers,
-    introspection: true,
-    playground: true
+    plugins: [
+      ApolloServerPluginLandingPageGraphQLPlayground(),
+    ],
 });
 
 // The `listen` method launches a web server.
